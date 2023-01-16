@@ -1,5 +1,5 @@
 {
-  "name": "mongo-migrate",
+  "name": "mongodb-migrate",
   "version": "1.0.0",
   "description": "The file contains code for creating a new migration, running a specific migration and all non-executed migrations.",
   "main": "migration.js",
