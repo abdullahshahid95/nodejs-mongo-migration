@@ -1,6 +1,6 @@
 {
   "name": "@abdullahshahid95/nodejs-mongo-migration",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The file contains code for creating a new migration, running a specific migration and all non-executed migrations.",
   "main": "migration.js",
   "scripts": {
