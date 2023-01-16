@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/abdullahshahid95/nodejs-mongo-migration.git"
   },
-  "keywords": [],
+  "keywords": ["mongo", "migrate", "mongodb", "migrations", "database"],
   "author": "abdullahshahid95",
   "license": "ISC",
   "bugs": {
