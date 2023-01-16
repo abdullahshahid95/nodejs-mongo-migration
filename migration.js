@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env node
 
 const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
