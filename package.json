@@ -1,11 +1,9 @@
 {
-  "name": "@abdullahshahid95/nodejs-mongo-migration",
-  "version": "1.0.3",
+  "name": "mongo-migrate",
+  "version": "1.0.0",
   "description": "The file contains code for creating a new migration, running a specific migration and all non-executed migrations.",
   "main": "migration.js",
-  "bin": {
-    "mongo-migrate": "migration.js" 
-  },
+  "bin": "migration.js",
   "scripts": {
     "mongo-migrate": "node migration.js",
     "test": "echo \"Error: no test specified\" && exit 1"
