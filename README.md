@@ -8,4 +8,4 @@ The file contains code for creating a new migration, running a specific migratio
 
 'npm run migrate' command without any parameters will run up functions of all files that were not executed before. Migrations that have been created first are run first. Executed migrations are recorded in migration_logs collection.
 
-‘npm run migrate -- --d’ runs all down migrations. It does not store any logs.
+‘npm run migrate -- --d --file=BI-1234-202212261749’ downs or perform undo on the migration. It then removes the migration from migration_logs collection.
