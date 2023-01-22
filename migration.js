@@ -77,7 +77,7 @@ const createFile = () => {
     },
   
     down(db, client) {
-      db.getCollection("settings").remove({
+      db.collection("settings").remove({
         field_name: "setting_name"
       });
     }
@@ -141,7 +141,7 @@ const runUpMigration = async () => {
       if (!log) {
         await migration.up(db);
         await addLogs(migration_logs, file);
-        console.log("Success");
+        console.log("Up Success");
       } else {
         alreadyRun(file);
       }
@@ -167,7 +167,7 @@ const runUpMigration = async () => {
     }
 
     await Promise.all(results);
-    console.log("Success");
+    console.log("Up Success");
     await client.close();
   }
 };
@@ -175,21 +175,35 @@ const runUpMigration = async () => {
 const runDownMigration = async () => {
   const {db, client} = await connect();
 
-  const fs = require("fs");
-  const unsortedFiles = fs.readdirSync("./migrations");
-  const sortedFiles = sortFiles(unsortedFiles, fs);
+  const migration_logs = db.collection("migration_logs");
 
-  const results = [];
-  for (let i = 0; i < sortedFiles.length; i++) {
-    let file = sortedFiles[i].replace(".js", "");
-    let migration = require(`../../migrations/${file}`);
-    const response = migration.down(db);
-    results.push(response);
+  const fileParameter = process.argv.find((f) => f.includes("--file"));
+
+  if (fileParameter) {
+    const file = fileParameter
+      .replace(" ", "")
+      .replace("--file=", "")
+      .replace(".js", "");
+    if (file) {
+      let migration;
+      try {
+        migration = require(`../../migrations/${file}`);
+      } catch (error) {
+        if (error.code == "MODULE_NOT_FOUND") {
+          console.log(`\nfile ${file} not found.`);
+        } else {
+          console.log(error);
+        }
+        await client.close();
+        return;
+      }
+
+      await migration_logs.deleteOne({name: file});
+      await migration.down(db);
+      console.log("Down Success");
+      await client.close();
+    }
   }
-
-  await Promise.all(results);
-  console.log("Success");
-  await client.close();
 };
 
 const main = async () => {
